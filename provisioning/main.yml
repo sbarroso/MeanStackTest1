@@ -1,0 +1,14 @@
+- hosts: all
+  user: vagrant
+  become: yes
+  become_method: sudo
+  
+  tasks:
+    - name: Install packages
+      apt: name={{ item }} state=present update_cache=yes
+      with_items:
+        - build-essential
+        - git
+
+    - include: tasks/mongodb.yml
+    - include: tasks/nodejs.yml
